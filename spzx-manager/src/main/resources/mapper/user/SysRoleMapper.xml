@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.spzx.manager.mapper.SysRoleMapper">
+
+    <select id="findByPage" resultType="com.atguigu.spzx.model.entity.system.SysRole">
+        select * from sys_role where is_deleted = 0
+        <!-- 正确判断：检查dto和roleName都不为空 -->
+        <if test="dto != null and dto.roleName != null and dto.roleName != ''">
+            and role_name like concat('%', #{dto.roleName}, '%')
+        </if>
+        order by create_time desc
+    </select>
+</mapper>
