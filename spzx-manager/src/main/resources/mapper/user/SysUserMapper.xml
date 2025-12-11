@@ -5,4 +5,16 @@
 
 <mapper namespace="com.atguigu.spzx.manager.mapper.SysUserMapper">
 
+    <select id="findByPage" resultType="com.atguigu.spzx.model.entity.system.SysUser">
+        select * from sys_user where is_deleted = 0
+        <if test="dto.keyword != null and dto.keyword != ''">
+            and username like concat('%',#{dto.keyword},'%')
+        </if>
+        <if test="dto.createTimeBegin != null and dto.createTimeBegin != ''">
+            and create_time >= #{dto.createTimeBegin}
+        </if>
+        <if test="dto.createTimeEnd != null and dto.createTimeEnd != ''" >
+            and create_time &lt;= #{dto.createTimeEnd}
+        </if>
+    </select>
 </mapper>

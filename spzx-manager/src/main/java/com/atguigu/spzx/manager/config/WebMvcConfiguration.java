@@ -20,14 +20,14 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(@NotNull InterceptorRegistry registry) {
-        // 调试：打印加载的排除路径
-        System.out.println("=== 加载的排除路径列表 ===");
-        if (userProperties.getNoAuthUrls() != null) {
-            userProperties.getNoAuthUrls().forEach(System.out::println);
-        } else {
-            System.out.println("警告：noAuthUrls 为 null!");
-        }
-        System.out.println("=======================");
+//        // 调试：打印加载的排除路径
+//        System.out.println("=== 加载的排除路径列表 ===");
+//        if (userProperties.getNoAuthUrls() != null) {
+//            userProperties.getNoAuthUrls().forEach(System.out::println);
+//        } else {
+//            System.out.println("警告：noAuthUrls 为 null!");
+//        }
+//        System.out.println("=======================");
 
         registry.addInterceptor(loginAuthInterceptor)
                 .excludePathPatterns(userProperties.getNoAuthUrls())

@@ -41,16 +41,31 @@ mybatis-plus:
 spzx:
   auth:
     noAuthUrls:
+      # 后台登录相关
       - /admin/system/index/login
       - /admin/system/index/generateValidateCode
+
+      # Knife4j/Swagger UI 核心页面
       - /doc.html
+      - /swagger-ui.html
+      - /swagger-ui/**
+
+      # Swagger UI 静态资源
       - /webjars/**
       - /swagger-resources/**
+      - /swagger-resources
+
+      # OpenAPI 文档 JSON
       - /v2/api-docs
+      - /v3/api-docs
       - /v3/api-docs/**
+
+      # 其他可能需要的路径
+      - /favicon.ico
+      - /error
 
   minio:
     endpointUrl: http://127.0.0.1:9000
     accessKey: minioadmin
-    secreKey: minioadmin
+    secretKey: minioadmin
     bucketName: spzx-bucket
