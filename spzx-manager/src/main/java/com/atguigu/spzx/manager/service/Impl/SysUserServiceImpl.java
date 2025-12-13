@@ -6,18 +6,22 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.atguigu.spzx.common.exception.SelfException;
+import com.atguigu.spzx.manager.mapper.SysRoleUserMapper;
 import com.atguigu.spzx.manager.mapper.SysUserMapper;
 import com.atguigu.spzx.manager.properties.MinioProperties;
 import com.atguigu.spzx.manager.service.SysUserService;
+import com.atguigu.spzx.model.dto.system.AssginRoleDto;
 import com.atguigu.spzx.model.dto.system.LoginDto;
 import com.atguigu.spzx.model.dto.system.SysUserDto;
 import com.atguigu.spzx.model.entity.system.SysRole;
+import com.atguigu.spzx.model.entity.system.SysRoleUser;
 import com.atguigu.spzx.model.entity.system.SysUser;
 import com.atguigu.spzx.model.vo.common.Result;
 import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.system.LoginVo;
 import com.atguigu.spzx.model.vo.system.ValidateCodeVo;
 import com.atguigu.spzx.utils.AuthContextUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -29,6 +33,7 @@ import io.minio.PutObjectArgs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,6 +52,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Autowired
     private MinioProperties minioProperties ;
+
+    @Autowired
+    private SysRoleUserMapper sysRoleUserMapper;
 
     @Override
     public LoginVo login(LoginDto loginDto) {
@@ -201,6 +209,22 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void doAssign(AssginRoleDto assginRoleDto) {
+
+        //删除之前分配的角色
+        sysRoleUserMapper.delete(new LambdaQueryWrapper<SysRoleUser>().eq(SysRoleUser::getUserId, assginRoleDto.getUserId()));
+
+        //重新分配角色
+        assginRoleDto.getRoleIdList().forEach(roleId -> {
+            SysRoleUser sysRoleUser = new SysRoleUser();
+            sysRoleUser.setRoleId(roleId);
+            sysRoleUser.setUserId(assginRoleDto.getUserId());
+            sysRoleUserMapper.insert(sysRoleUser);
+        });
     }
 
 }

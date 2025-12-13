@@ -13,6 +13,8 @@ import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @Tag(name = "角色接口")
 @RestController
 @RequestMapping(value = "admin/system/sysRole")
@@ -63,6 +65,15 @@ public class SysRoleController {
         } else {
             return Result.build(null, ResultCodeEnum.DATA_ERROR);
         }
+    }
+
+    //获取授权角色列表（已授权要勾选用Map返回）
+    @Operation(summary = "获取授权角色列表")
+    @GetMapping("/findAllRoles/{userId}")
+    public Result findAllRoles(@PathVariable Long userId) {
+        Map<String,Object> map = sysRoleService.findAllRoles(userId);
+
+        return Result.build(map, ResultCodeEnum.SUCCESS);
     }
 
 }

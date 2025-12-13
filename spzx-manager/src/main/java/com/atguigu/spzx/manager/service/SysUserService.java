@@ -1,5 +1,6 @@
 package com.atguigu.spzx.manager.service;
 
+import com.atguigu.spzx.model.dto.system.AssginRoleDto;
 import com.atguigu.spzx.model.dto.system.LoginDto;
 import com.atguigu.spzx.model.dto.system.SysUserDto;
 import com.atguigu.spzx.model.entity.system.SysRole;
@@ -29,4 +30,6 @@ public interface SysUserService extends IService<SysUser> {
     Result updateSysUser(SysUser sysUser);
 
     String uploadFile(MultipartFile file);
+
+    void doAssign(AssginRoleDto assginRoleDto);
 }

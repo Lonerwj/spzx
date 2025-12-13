@@ -1,6 +1,7 @@
 package com.atguigu.spzx.model.entity.system;
 
 import com.atguigu.spzx.model.entity.base.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -27,6 +28,7 @@ public class SysMenu extends BaseEntity {
 
 	// 下级列表
 	@Schema(description = "子节点")
+	@TableField(exist = false)
 	private List<SysMenu> children;
 
 }
