@@ -1,6 +1,7 @@
 package com.atguigu.spzx.manager.service;
 
 import com.atguigu.spzx.model.entity.system.SysMenu;
+import com.atguigu.spzx.model.vo.system.SysMenuVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
@@ -11,4 +12,8 @@ public interface SysMenuService extends IService<SysMenu> {
     List<SysMenu> findNodes();
 
     Boolean removeById(Long id);
+
+    List<SysMenuVo> menus();
+
+    boolean save(SysMenu sysMenu);
 }
