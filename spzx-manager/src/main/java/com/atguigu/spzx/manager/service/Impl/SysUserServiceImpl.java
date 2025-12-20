@@ -195,7 +195,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             String uuid = UUID.randomUUID().toString().replace("-", "");
             //20230801/443e1e772bef482c95be28704bec58a901.jpg
             String fileName = dateDir+"/"+uuid+file.getOriginalFilename();
-            System.out.println(fileName);
+//            System.out.println(fileName);
 
             PutObjectArgs putObjectArgs = PutObjectArgs.builder()
                     .bucket(minioProperties.getBucketName())
