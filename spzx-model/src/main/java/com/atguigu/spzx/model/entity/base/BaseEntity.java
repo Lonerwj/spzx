@@ -1,6 +1,8 @@
 package com.atguigu.spzx.model.entity.base;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -13,6 +15,7 @@ import java.util.Date;
 public class BaseEntity implements Serializable {
 
     @Schema(description = "唯一标识")
+    @TableId(type = IdType.AUTO)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 

@@ -12,4 +12,6 @@ import org.apache.ibatis.annotations.Param;
 public interface ProductMapper extends BaseMapper<Product> {
     IPage<Product> findByPage(Page<Product> pageParam,
                               @Param("dto") ProductDto productDto);
+
+    Product selectById(@Param("id") Long id);
 }

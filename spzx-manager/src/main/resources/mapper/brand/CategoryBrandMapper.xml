@@ -20,4 +20,10 @@
             </if>
         order by cb.id desc 
     </select>
+    <select id="findBrandByCategoryId" resultType="com.atguigu.spzx.model.entity.product.Brand">
+        SELECT b.*
+        FROM brand b
+        INNER JOIN category_brand cb ON b.id = cb.brand_id
+        WHERE cb.category_id = #{categoryId}
+    </select>
 </mapper>

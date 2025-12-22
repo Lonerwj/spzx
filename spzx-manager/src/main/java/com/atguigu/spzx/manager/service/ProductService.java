@@ -9,4 +9,16 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ProductService extends IService<Product> {
     IPage<Product> findByPage(Integer page, Integer limit, ProductDto productDto);
+
+    boolean save(Product product);
+
+    Product getById(Long id);
+
+    boolean updateById(Product product);
+
+    void deleteById(Long id);
+
+    void updateAuditStatus(Long id, Integer auditStatus);
+
+    void updateStatus(Long id, Integer status);
 }
