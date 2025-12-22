@@ -109,11 +109,10 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         Product product = productMapper.selectById(id);
 
         if (auditStatus == 1) {
-            product.setStatus(1);
+            product.setAuditStatus(1);
             product.setAuditMessage("审批通过");
         } else {
-            product.setStatus(-1);
-            productMapper.updateById(product);
+            product.setAuditStatus(-1);
             product.setAuditMessage("审批未通过");
         }
         productMapper.updateById(product);

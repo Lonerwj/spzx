@@ -19,16 +19,16 @@
         <where>
                 p.is_deleted = 0
             <if test="dto.brandId != null and dto.brandId != ''">
-                and p.brand_id = #{brandId}
+                and p.brand_id = #{dto.brandId}
             </if>
             <if test="dto.category1Id != null and dto.category1Id != ''">
-                and p.category1_id = #{category1Id}
+                and p.category1_id = #{dto.category1Id}
             </if>
             <if test="dto.category2Id != null and dto.category2Id != ''">
-                and p.category2_id = #{category2Id}
+                and p.category2_id = #{dto.category2Id}
             </if>
             <if test="dto.category3Id != null and dto.category3Id != ''">
-                and p.category3_id = #{category3Id}
+                and p.category3_id = #{dto.category3Id}
             </if>
         </where>
     </select>
