@@ -27,7 +27,6 @@ public class CategoryController {
     @GetMapping("/findCategoryList/{id}")
     public Result findCategoryList(@PathVariable Long id) {
         List<Category> list = categoryService.findCategoryList(id);
-        System.out.println(list.get(0));
         return Result.build(list, ResultCodeEnum.SUCCESS);
     }
 
