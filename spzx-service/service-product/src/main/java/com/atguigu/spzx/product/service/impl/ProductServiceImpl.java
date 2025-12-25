@@ -8,7 +8,10 @@ import com.atguigu.spzx.model.entity.product.ProductSku;
 import com.atguigu.spzx.model.vo.h5.ProductItemVo;
 import com.atguigu.spzx.product.mapper.ProductMapper;
 import com.atguigu.spzx.product.service.ProductService;
+import com.atguigu.spzx.product.utils.PageUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -31,5 +34,12 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     public List<ProductSku> findHotProductSkuList() {
 
         return productMapper.findHotProductSkuList();
+    }
+
+    @Override
+    public PageInfo<ProductSku> findByPage(Integer page, Integer limit, ProductSkuDto productSkuDto) {
+        IPage<ProductSku> pageParam = new Page<>(page, limit);
+        IPage<ProductSku> pages = productMapper.findByPage(pageParam,productSkuDto);
+        return PageUtils.toPageInfo(pages);
     }
 }

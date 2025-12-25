@@ -13,4 +13,34 @@
         order by ps.sale_num desc
         limit 10
     </select>
+    <select id="findByPage" resultType="com.atguigu.spzx.model.entity.product.ProductSku">
+        select ps.*
+            from product_sku ps
+            inner join product p on ps.product_id = p.id
+        where p.status = 1 and p.is_deleted = 0 and ps.is_deleted = 0
+        <if test="dto.skuName != null and dto.skuName != ''">
+            and ps.sku_name like concat('%',#{dto.skuName},'%')
+        </if>
+        <if test="dto.brandId != null">
+            and p.brand_id = #{dto.brandId}
+        </if>
+        <if test="dto.category1Id != null">
+            and p.category1_id = #{dto.category1Id}
+        </if>
+        <if test="dto.category2Id != null">
+            and p.category2_id = #{dto.category2Id}
+        </if>
+        <if test="dto.category3Id != null">
+            and p.category3_id = #{dto.category3Id}
+        </if>
+        <if test="dto.order == 1">
+            order by sku.sale_num desc
+        </if>
+        <if test="dto.order == 2">
+            order by ps.sale_price
+        </if>
+        <if test="dto.order == 3">
+            order by ps.sale_price desc
+        </if>
+    </select>
 </mapper>

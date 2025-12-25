@@ -14,4 +14,6 @@ import java.util.List;
 public interface ProductService extends IService<Product> {
 
     List<ProductSku> findHotProductSkuList();
+
+    PageInfo<ProductSku> findByPage(Integer page, Integer limit, ProductSkuDto productSkuDto);
 }
