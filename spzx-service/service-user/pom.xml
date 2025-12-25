@@ -18,6 +18,14 @@
         <docker.registry.name>spzx</docker.registry.name>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.3.1</version> <!-- 建议使用最新稳定版 -->
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>

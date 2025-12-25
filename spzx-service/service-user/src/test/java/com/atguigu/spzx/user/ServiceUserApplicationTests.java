@@ -1,13 +1,13 @@
-package com.atguigu.commonlog;
+package com.atguigu.spzx.user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CommonLogApplicationTests {
+class ServiceUserApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }

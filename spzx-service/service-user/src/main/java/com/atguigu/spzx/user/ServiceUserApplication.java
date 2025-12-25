@@ -1,9 +1,11 @@
-package com.atguigu.serviceuser;
+package com.atguigu.spzx.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan(basePackages = "com.atguigu.spzx")
 public class ServiceUserApplication {
 
     public static void main(String[] args) {
