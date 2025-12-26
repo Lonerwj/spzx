@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class SmsServiceImpl implements SmsService {
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String,String> redisTemplate;
     @Override
     public void sendValidateCode(String phone) {
         //生产验证码
