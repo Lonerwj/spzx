@@ -1,0 +1,77 @@
+server:
+  port: 8513
+
+spring:
+  application:
+    name: service-product
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.188.100:3306/db_spzx?characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 1234
+  data:
+    redis:
+      host: 192.168.188.100
+      port: 6379
+
+mybatis-plus:
+  # 1. 替代原有的 mapper-locations[citation:5]
+  mapper-locations: classpath:/mapper/**/*.xml
+  # 2. 替代原有的 config-location
+  # 注意：如果你像下面这样在yml中配置了configuration，
+  # 就不需要再指定外部的mybatis-config.xml文件，否则会冲突[citation:9]。
+  # config-location: classpath:/mybatis-config.xml
+
+  # 3. 将原XML中的settings配置转换到此处
+  configuration:
+    # 开启自动驼峰命名规则映射[citation:5]
+    map-underscore-to-camel-case: true
+    # 配置日志实现，在控制台打印SQL[citation:2]
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+  # 4. 全局配置（例如逻辑删除、主键类型等可在此配置）[citation:5]
+  global-config:
+    db-config:
+      # 全局主键类型，例如 ASSIGN_ID（雪花算法）
+      id-type: assign_id
+      # 逻辑删除配置（如果表中有相关字段）
+      logic-delete-field: is_deleted  # 逻辑删除字段名
+      logic-delete-value: 1           # 已删除的值（数据库中的值）
+      logic-not-delete-value: 0       # 未删除的值
+
+spzx:
+  auth:
+    noAuthUrls:
+      # 后台登录相关
+      - /admin/system/index/login
+      - /admin/system/index/generateValidateCode
+
+      # Knife4j/Swagger UI 核心页面
+      - /doc.html
+      - /swagger-ui.html
+      - /swagger-ui/**
+
+      # Swagger UI 静态资源
+      - /webjars/**
+      - /swagger-resources/**
+      - /swagger-resources
+
+      # OpenAPI 文档 JSON
+      - /v2/api-docs
+      - /v3/api-docs
+      - /v3/api-docs/**
+
+      # 其他可能需要的路径
+      - /favicon.ico
+      - /error
+
+  minio:
+    endpointUrl: http://127.0.0.1:9000
+    accessKey: minioadmin
+    secretKey: minioadmin
+    bucketName: spzx-bucket

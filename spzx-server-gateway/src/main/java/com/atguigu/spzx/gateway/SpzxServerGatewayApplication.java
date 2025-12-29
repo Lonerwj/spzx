@@ -1,4 +1,4 @@
-package com.atguigu.spzxservergateway;
+package com.atguigu.spzx.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

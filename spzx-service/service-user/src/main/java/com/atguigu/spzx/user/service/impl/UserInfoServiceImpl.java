@@ -5,14 +5,13 @@ import com.atguigu.spzx.common.exception.SelfException;
 import com.atguigu.spzx.model.dto.h5.UserLoginDto;
 import com.atguigu.spzx.model.dto.h5.UserRegisterDto;
 import com.atguigu.spzx.model.entity.user.UserInfo;
-import com.atguigu.spzx.model.vo.common.Result;
 import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.h5.UserInfoVo;
 import com.atguigu.spzx.user.mapper.UserInfoMapper;
 import com.atguigu.spzx.user.service.UserInfoService;
+import com.atguigu.spzx.utils.AuthContextUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -83,11 +82,14 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
 
     @Override
     public UserInfoVo getCurrentUserInfo(String token) {
-        String userInfoJSON = redisTemplate.opsForValue().get("user:spzx:" + token);
-        if(StringUtils.isEmpty(userInfoJSON)) {
-            throw new SelfException(ResultCodeEnum.LOGIN_AUTH) ;
-        }
-        UserInfo userInfo = JSON.parseObject(userInfoJSON , UserInfo.class) ;
+//        String userInfoJSON = redisTemplate.opsForValue().get("user:spzx:" + token);
+//        if(StringUtils.isEmpty(userInfoJSON)) {
+//            throw new SelfException(ResultCodeEnum.LOGIN_AUTH) ;
+//        }
+//        UserInfo userInfo = JSON.parseObject(userInfoJSON , UserInfo.class) ;
+//        UserInfoVo userInfoVo = new UserInfoVo();
+//        BeanUtils.copyProperties(userInfo, userInfoVo);
+        UserInfo userInfo = AuthContextUtil.getUserInfo();
         UserInfoVo userInfoVo = new UserInfoVo();
         BeanUtils.copyProperties(userInfo, userInfoVo);
         return userInfoVo ;
