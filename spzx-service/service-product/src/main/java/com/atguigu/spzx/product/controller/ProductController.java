@@ -5,8 +5,8 @@ import com.atguigu.spzx.model.entity.product.ProductSku;
 import com.atguigu.spzx.model.vo.common.Result;
 import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.h5.ProductItemVo;
+import com.atguigu.spzx.product.mapper.ProductSkuMapper;
 import com.atguigu.spzx.product.service.ProductService;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -23,6 +23,9 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private ProductSkuMapper productSkuMapper;
+
     @Operation(summary = "分页查询")
     @GetMapping(value = "/{page}/{limit}")
     public Result<PageInfo<ProductSku>> findByPage(@Parameter(name = "page", description = "当前页码", required = true) @PathVariable Integer page,
@@ -37,5 +40,11 @@ public class ProductController {
     public Result<ProductItemVo> getItem(@Parameter(name = "skuId", description = "商品skuId", required = true) @PathVariable Long skuId) {
         ProductItemVo productItemVo = productService.getItem(skuId);
         return Result.build(productItemVo, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "获取商品sku信息")
+    @GetMapping("getBySkuId/{skuId}")
+    public ProductSku getBySkuId(@Parameter(name = "skuId", description = "商品skuId", required = true) @PathVariable Long skuId) {
+        return productSkuMapper.selectById(skuId);
     }
 }
